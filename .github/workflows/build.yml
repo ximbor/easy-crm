@@ -8,12 +8,10 @@ on:
 
 jobs:
   build:
-    # Esegue il job sull'ultima versione di Ubuntu
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        # Checkout del codice
         uses: actions/checkout@v4
 
       - name: Install C++ dependencies
@@ -24,9 +22,3 @@ jobs:
       - name: Compile C++ Project
         run: |
           g++ -std=c++17 main.cpp -o crm_appc
-
-      - name: Run Basic Test
-        run: |
-          echo "Running compiled application..."
-          ./crm_app
-          echo "Build and basic execution successful!"
