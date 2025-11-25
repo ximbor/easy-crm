@@ -23,7 +23,7 @@ jobs:
 
       - name: Compile C++ Project
         run: |
-          g++ -std=c++17 main.cpp CrmService.cpp repositories.h services.h customer.h -o crm_app
+          g++ -std=c++17 main.cpp -o crm_appc
 
       - name: Run Basic Test
         run: |
