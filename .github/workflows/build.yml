@@ -27,9 +27,9 @@ jobs:
         run: |
             zip -r crm-sources.zip *.cpp *.h
 
-            - name: Upload Source Artifact
-              uses: actions/upload-artifact@v4
-              with:
-                name: crm-source-code
-                path: crm-sources.zip
-                retention-days: 15
+      - name: Upload Source Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: crm-source-code
+          path: crm-sources.zip
+          retention-days: 15
