@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    # Esegue il job sull'ultima versione di Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        # Checkout del codice
+        uses: actions/checkout@v4
+
+      - name: Install C++ dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ make
+
+      - name: Compile C++ Project
+        run: |
+          g++ -std=c++17 -o crm_app main.cpp CrmService.cpp FlatCustomerRepository.cpp Customer.cpp 
+
+      - name: Run Basic Test
+        run: |
+          echo "Running compiled application..."
+          ./crm_app
+          echo "Build and basic execution successful!"
