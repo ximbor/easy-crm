@@ -1,3 +1,5 @@
 /customers.txt
 /crm_app
 /main.dSYM/
+.idea
+/.DS_Store
