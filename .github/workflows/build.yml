@@ -22,3 +22,14 @@ jobs:
       - name: Compile C++ Project
         run: |
           g++ -std=c++17 main.cpp -o crm_appc
+
+      - name: Create Source Zip
+        run: |
+            zip -r crm-sources.zip *.cpp *.h
+
+            - name: Upload Source Artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: crm-source-code
+                path: crm-sources.zip
+                retention-days: 15
