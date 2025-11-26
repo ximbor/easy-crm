@@ -14,16 +14,16 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install C++ dependencies
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y g++ make
 
-      - name: Compile C++ Project
+      - name: Compile project
         run: |
           g++ -std=c++17 main.cpp -o crm_appc
 
-      - name: Create Source Zip
+      - name: zip
         run: |
             zip -r crm-sources.zip *.cpp *.h
 
