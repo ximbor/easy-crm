@@ -11,7 +11,7 @@ private:
     shared_ptr<ICustomerRepository> repository;
 
 public:
-    CrmService(shared_ptr<ICustomerRepository> repo) : repository(repo), nextId(1) {
+    CrmService(shared_ptr<ICustomerRepository> repo): repository(repo), nextId(1) {
         repository->load(customers, nextId);
         cout << ">> Data loaded on startup. Auto-save is active.\n";
     }
@@ -103,12 +103,19 @@ public:
         string date, note;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        cout << "Date for Appointment: "; getline(cin, date);
+        do {
+            cout << "Date (DD/MM/YYYY): ";
+            getline(cin, date);
+            if (isValidDateFormat(date)) {
+                break;
+            }
+            cout << "Invalid date format. Please use DD/MM/YYYY.\n";
+        } while (true);
+
         cout << "Note for Appointment: "; getline(cin, note);
 
         c->addAppointment(Appointment(date, note));
         cout << ">> Appointment added.\n";
-        // CORREZIONE BUG 2: Salvataggio immediato
         repository->save(customers, nextId);
     }
 
@@ -116,25 +123,43 @@ public:
         Customer* c = findCustomerById(id);
         if (!c) { cout << ">> Not found.\n"; return; }
 
-        string date, note;
+        string date, note, valStr;
         double val;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        cout << "Date for Contract: "; getline(cin, date);
-        cout << "Note for Contract: "; getline(cin, note);
-        cout << "Contract Value (€): ";
+        do {
+            cout << "Date (DD/MM/YYYY): ";
+            getline(cin, date);
+            if (isValidDateFormat(date)) {
+                break;
+            }
+            cout << "Invalid date format. Please use DD/MM/YYYY.\n";
+        } while (true);
 
-        if (!(cin >> val)) {
-            cout << "Invalid value input. Contract failed.\n";
-            cin.clear(); cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            return;
-        }
+        cout << "Note for Contract: ";
+        getline(cin, note);
+
+        do {
+            cout << "Contract Value (€): ";
+            getline(cin, valStr);
+
+            if (isValidNumericInput(valStr)) {
+                val = std::stod(valStr);
+
+                if (val > 0) {
+                    break;
+                }
+            } else {
+                cout << "Invalid input. Please enter a valid positive number.\n";
+            }
+        } while (true);
 
         c->addContract(Contract(date, note, val));
-        cout << ">> Contract added.\n";
-        // CORREZIONE BUG 2: Salvataggio immediato
+        cout << ">> Contract added successfully.\n";
         repository->save(customers, nextId);
     }
+
+
 
     void viewInteractions(int id) {
         Customer* customer = findCustomerById(id);

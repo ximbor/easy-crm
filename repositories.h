@@ -102,7 +102,6 @@ public:
             vector<string> parts = split(line);
             if (parts.empty()) continue;
 
-            // CORREZIONE BUG 1: Usiamo IDX_RECORD_TYPE (0) invece di IDX_ID (1)
             string type = parts[IDX_RECORD_TYPE];
 
             if (type == "C" && parts.size() >= PARTS_COUNT) {

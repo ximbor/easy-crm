@@ -10,9 +10,9 @@
 
 using namespace std;
 
-void manageCustomerDetails(CrmService& crm, const int customerId) {
+void manageCustomerDetails(CrmService& crmService, const int customerId) {
 
-    if (!crm.findCustomerById(customerId)) {
+    if (!crmService.findCustomerById(customerId)) {
         cout << "Customer with ID " << customerId << " not found.\n";
         return;
     }
@@ -35,11 +35,11 @@ void manageCustomerDetails(CrmService& crm, const int customerId) {
         }
 
         switch (choice) {
-            case 1: crm.viewInteractions(customerId); break;
-            case 2: crm.addAppointmentToCustomer(customerId); break;
-            case 3: crm.addContractToCustomer(customerId); break;
-            case 4: crm.deleteCustomer(customerId); return;
-            case 5: crm.modifyCustomer(customerId); break;
+            case 1: crmService.viewInteractions(customerId); break;
+            case 2: crmService.addAppointmentToCustomer(customerId); break;
+            case 3: crmService.addContractToCustomer(customerId); break;
+            case 4: crmService.deleteCustomer(customerId); return;
+            case 5: crmService.modifyCustomer(customerId); break;
             case 0: break;
             default: cout << "Invalid option.\n";
         }
@@ -47,7 +47,7 @@ void manageCustomerDetails(CrmService& crm, const int customerId) {
 }
 
 void showMenu() {
-    cout << "\n=== CRM SYSTEM ===\n";
+    cout << "\n=== EASY CRM ===\n";
     cout << "1. Add Customer\n";
     cout << "2. View All Customers\n";
     cout << "3. Search a customer (full-text)\n";
