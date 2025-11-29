@@ -7,6 +7,15 @@
 using namespace std;
 
 /**
+ * Clear cin buffer.
+ */
+void clearBuffer(bool clearInput = false) {
+    if (clearInput)
+        cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+}
+
+/**
  * Reads a string from std in.
  * @param prompt Text to show.
  * @return Read string
@@ -15,19 +24,19 @@ string readString(const string& prompt) {
     string input;
     cout << prompt + ": ";
     cin >> input;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    clearBuffer();
     return input;
 }
 
 /**
  * Converts a string to lower case.
- * @param s String to transform.
+ * @param str String to transform.
  * @return Lower case string.
  */
-static string toLowerString(string s) {
-    transform(s.begin(), s.end(), s.begin(),
+static string toLowerString(string str) {
+    transform(str.begin(), str.end(), str.begin(),
         [](unsigned char c){ return tolower(c); });
-    return s;
+    return str;
 }
 
 /**

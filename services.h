@@ -49,8 +49,7 @@ public:
         string input;
         cout << "\n--- Modifying Customer ID: " << id << " ---\n";
         cout << "Leave empty to keep current value.\n";
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Assicuriamo il buffer pulito
-
+        clearBuffer();
         cout << "New First Name (" << c->getFirstName() << "): ";
         getline(cin, input);
         if (!input.empty()) c->setFirstName(input);
@@ -101,7 +100,7 @@ public:
         if (!c) { cout << ">> Not found.\n"; return; }
 
         string date, note;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        clearBuffer();
 
         do {
             cout << "Date (DD/MM/YYYY): ";
@@ -125,7 +124,7 @@ public:
 
         string date, note, valStr;
         double val;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        clearBuffer();
 
         do {
             cout << "Date (DD/MM/YYYY): ";
@@ -158,8 +157,6 @@ public:
         cout << ">> Contract added successfully.\n";
         repository->save(customers, nextId);
     }
-
-
 
     void viewInteractions(int id) {
         Customer* customer = findCustomerById(id);

@@ -7,6 +7,7 @@
 #include "customer.h"
 #include "repositories.h"
 #include "services.h"
+#include "utils.h"
 
 using namespace std;
 
@@ -30,7 +31,7 @@ void manageCustomerDetails(CrmService& crmService, const int customerId) {
 
         if (!(cin >> choice)) {
             cout << "Invalid input.\n";
-            cin.clear(); cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            clearBuffer(true);
             continue;
         }
 
@@ -48,8 +49,8 @@ void manageCustomerDetails(CrmService& crmService, const int customerId) {
 
 void showMenu() {
     cout << "\n=== EASY CRM ===\n";
-    cout << "1. Add Customer\n";
-    cout << "2. View All Customers\n";
+    cout << "1. Add a customer\n";
+    cout << "2. View all customers\n";
     cout << "3. Search a customer (full-text)\n";
     cout << "4. Search a customer (by id)\n";
     cout << "5. Exit\n";
@@ -67,7 +68,7 @@ int main() {
         showMenu();
         if (!(cin >> choice)) {
             cout << "Invalid input.\n";
-            cin.clear(); cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            clearBuffer(true);
             continue;
         }
 
@@ -96,13 +97,14 @@ int main() {
                     if (!(cin >> idToManage) || idToManage == 0) break;
 
                     if (cin.fail()) {
-                        cin.clear(); cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        clearBuffer(true);
                         cout << "Invalid ID entered.\n";
                         break;
                     }
                     manageCustomerDetails(crmService, idToManage);
                 }
-                if (cin.good()) cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                if (cin.good())
+                    clearBuffer();
                 break;
             }
 
@@ -113,12 +115,13 @@ int main() {
                 if (!(cin >> idToManage) || idToManage == 0) break;
 
                 if (cin.fail()) {
-                    cin.clear(); cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                    clearBuffer(true);
                     cout << "Invalid ID entered.\n";
                     break;
                 }
                 manageCustomerDetails(crmService, idToManage);
-                if (cin.good()) cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                if (cin.good())
+                    clearBuffer();
                 break;
             }
 
