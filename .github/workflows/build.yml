@@ -25,7 +25,7 @@ jobs:
 
       - name: zip
         run: |
-            zip -r crm-sources.zip *.cpp *.h *.md workflows/*.yml
+            zip -r crm-sources.zip *.cpp *.h *.md .github/workflows/*.yml
 
       - name: Upload Source Artifact
         uses: actions/upload-artifact@v4
